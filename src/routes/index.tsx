@@ -1,16 +1,16 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
 import React from 'react';
-import Home from '../pages/Home';
 import Splash from '../pages/Splash';
+import DrawerNav from './drawer';
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 const Routes: React.FC = () => {
     return (
-        <Drawer.Navigator screenOptions={{ headerShown: false }}>
-            <Drawer.Screen name="Splash" component={Splash} />
-            <Drawer.Screen name="Home" component={Home} />
-        </Drawer.Navigator>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+            <Stack.Screen name="Splash" component={Splash} />
+            <Stack.Screen name="Drawer" component={DrawerNav} />
+        </Stack.Navigator>
     );
 };
 

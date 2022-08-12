@@ -19,7 +19,7 @@ const Splash: React.FC = () => {
         setTimeout(() => {
             navigate.reset({
                 index: 0,
-                routes: [{ name: 'Home' }],
+                routes: [{ name: 'Drawer' }],
             });
         }, 5000);
     }, [opacity, navigate]);
