@@ -3,9 +3,11 @@ import { Container } from './styles';
 
 import Logo from '../../assets/logo-big.svg';
 import { Animated } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Splash: React.FC = () => {
     const opacity = useRef(new Animated.Value(0)).current;
+    const navigate = useNavigation();
 
     useEffect(() => {
         Animated.timing(opacity, {
@@ -13,7 +15,14 @@ const Splash: React.FC = () => {
             duration: 1000,
             useNativeDriver: true,
         }).start();
-    }, [opacity]);
+
+        setTimeout(() => {
+            navigate.reset({
+                index: 0,
+                routes: [{ name: 'Home' }],
+            });
+        }, 5000);
+    }, [opacity, navigate]);
 
     return (
         <Container style={{ opacity }}>
