@@ -21,7 +21,7 @@ const Splash: React.FC = () => {
                 index: 0,
                 routes: [{ name: 'Drawer' }],
             });
-        }, 5000);
+        }, 50);
     }, [opacity, navigate]);
 
     return (

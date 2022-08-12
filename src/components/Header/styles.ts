@@ -5,6 +5,7 @@ export const Container = styled.View`
     height: 120px;
 
     background-color: ${props => props.theme.colors.primary};
+    z-index: 10;
 `;
 
 export const Actions = styled.View`

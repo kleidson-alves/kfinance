@@ -3,6 +3,7 @@ export default {
         primary: '#F8763A',
         secondary: '#F9C80E',
         background: '#FFFFFF',
+        stroke: '#F5F5F5',
 
         positive: '#A4D604',
         negative: '#EA3546',
