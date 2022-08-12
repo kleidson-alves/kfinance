@@ -1,13 +1,15 @@
 import React from 'react';
-import {ThemeProvider} from 'styled-components/native';
+import { StatusBar } from 'react-native';
+import { ThemeProvider } from 'styled-components/native';
 
-import Home from './src/pages/Home';
+import Splash from './src/pages/Splash';
 import theme from './src/theme';
 
 const App = () => {
     return (
         <ThemeProvider theme={theme}>
-            <Home />
+            <StatusBar hidden />
+            <Splash />
         </ThemeProvider>
     );
 };
