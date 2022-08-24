@@ -23,7 +23,7 @@ export const WellcomeText = styled.Text`
     font-size: ${props => getFontSizeByValue(props.theme.sizes.body)};
 `;
 
-export const TextSpam = styled.Text`
+export const TextSpan = styled.Text`
     color: ${props => props.theme.colors.textWhite};
     font-family: ${props => props.theme.fonts.bold};
     font-size: ${props => getFontSizeByValue(props.theme.sizes.body)};
@@ -47,11 +47,11 @@ export const Balance = styled.View`
     align-items: center;
 `;
 
-interface BalanceSpamProps {
+interface BalanceSpanProps {
     color: string;
 }
 
-export const BalanceSpam = styled.Text<BalanceSpamProps>`
+export const BalanceSpan = styled.Text<BalanceSpanProps>`
     font-family: ${props => props.theme.fonts.bold};
     font-size: ${props => getFontSizeByValue(props.theme.sizes.body)};
 

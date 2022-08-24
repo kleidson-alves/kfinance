@@ -6,7 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useTheme } from 'styled-components';
-import { TextSpam } from '../Header/styles';
+import { TextSpan } from '../Header/styles';
 import CustomDrawerItem from './DrawerItem';
 import {
     ConfigLabel,
@@ -19,13 +19,15 @@ import {
 const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
     const theme = useTheme();
     const navigation = useNavigation();
+
     return (
         <Container>
-            <ConfigLabel onPress={() => navigation.navigate('Registers')}>
+            <ConfigLabel
+                onPress={() => navigation.navigate({ name: 'Registers' })}>
                 <Item>
                     <ItemText>
                         <ItemTextSimple>Configure o seu perfil,</ItemTextSimple>
-                        <TextSpam>Kleidson Alves</TextSpam>
+                        <TextSpan>Kleidson Alves</TextSpan>
                     </ItemText>
                     <Icon
                         name="settings"

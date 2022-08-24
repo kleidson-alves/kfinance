@@ -28,7 +28,7 @@ export const ItemTextSimple = styled.Text`
     font-size: ${props => getFontSizeByValue(props.theme.sizes.bodySmall)};
 `;
 
-export const ItemTextSpam = styled.Text`
+export const ItemTextSpan = styled.Text`
     color: ${props => props.theme.colors.textWhite};
 
     font-family: ${props => props.theme.fonts.bold};

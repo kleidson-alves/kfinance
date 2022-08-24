@@ -2,9 +2,9 @@ import React from 'react';
 import {
     Actions,
     Balance,
-    BalanceSpam,
+    BalanceSpan,
     Container,
-    TextSpam,
+    TextSpan,
     WellcomeBox,
     WellcomeText,
 } from './styles';
@@ -35,7 +35,7 @@ const Header: React.FC = () => {
                 </TouchableWithoutFeedback>
                 <WellcomeBox>
                     <WellcomeText>Seja bem-vindo</WellcomeText>
-                    <TextSpam>Kleidson Alves</TextSpam>
+                    <TextSpan>Kleidson Alves</TextSpan>
                 </WellcomeBox>
             </Actions>
 
@@ -45,9 +45,9 @@ const Header: React.FC = () => {
                     color={theme.colors.positive}
                     size={30}
                 />
-                <BalanceSpam color={theme.colors.positive}>
+                <BalanceSpan color={theme.colors.positive}>
                     R$ 200,00
-                </BalanceSpam>
+                </BalanceSpan>
             </Balance>
         </Container>
     );
