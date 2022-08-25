@@ -35,5 +35,5 @@ export const Tag = styled.View<TagProps>`
     border-radius: 14px;
     background-color: ${props => colors[props.color]};
 
-    margin-right: 5px;
+    margin-right: 13px;
 `;

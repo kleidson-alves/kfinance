@@ -1,6 +1,6 @@
 import React from 'react';
 import RegisterItem from './RegisterItem';
-import { Container } from './styles';
+import { Container, Content, Divider, Month } from './styles';
 
 type RegisterProps = {
     id: number;
@@ -9,11 +9,11 @@ type RegisterProps = {
     price: number;
 };
 
-interface RegistersTableProps {
+interface RegistersListProps {
     isPreviewMode?: boolean;
 }
 
-const RegistersTable: React.FC<RegistersTableProps> = ({
+const RegistersList: React.FC<RegistersListProps> = ({
     isPreviewMode = false,
 }) => {
     const registers: RegisterProps[] = [
@@ -74,19 +74,32 @@ const RegistersTable: React.FC<RegistersTableProps> = ({
     ];
 
     return (
-        <Container
-            data={
-                isPreviewMode
-                    ? registers.filter((register, index) => {
-                          if (index < 8) {
-                              return register;
-                          }
-                      })
-                    : registers
-            }
-            renderItem={({ item }) => <RegisterItem data={item} />}
-        />
+        <>
+            {isPreviewMode ? (
+                <Container
+                    data={registers.filter((register, index) => {
+                        if (index < 8) {
+                            return register;
+                        }
+                    })}
+                    renderItem={({ item }) => (
+                        <RegisterItem data={item as RegisterProps} />
+                    )}
+                />
+            ) : (
+                <Content>
+                    <Month>Julho</Month>
+                    <Divider />
+                    <Container
+                        data={registers}
+                        renderItem={({ item }) => (
+                            <RegisterItem data={item as RegisterProps} />
+                        )}
+                    />
+                </Content>
+            )}
+        </>
     );
 };
 
-export default RegistersTable;
+export default RegistersList;

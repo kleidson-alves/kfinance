@@ -1,8 +1,9 @@
+import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 import { FloatActionButton } from '../../components/Buttons';
 import Header from '../../components/Header';
-import RegistersTable from '../../components/RegistersTable';
+import RegistersTable from '../../components/RegisterList';
 import Summary from '../../components/Summary';
 
 import {
@@ -14,6 +15,8 @@ import {
 } from './styles';
 
 const Home: React.FC = () => {
+    const navigation = useNavigation();
+
     return (
         <Container>
             <Header />
@@ -31,7 +34,7 @@ const Home: React.FC = () => {
             </Content>
             <FloatActionButton
                 icon="plus"
-                action={() => console.log('Hello World')}
+                action={() => navigation.navigate('NewRegister' as never)}
             />
         </Container>
     );
