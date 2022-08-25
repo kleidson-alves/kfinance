@@ -1,7 +1,12 @@
 import React, { useCallback, useState } from 'react';
+import { ScrollView } from 'react-native-gesture-handler';
+
 import { Button } from '../../components/Buttons';
+import CalendarInput from '../../components/CalendarInput';
+import DropDown from '../../components/DropDown';
 import Input from '../../components/Input';
 import SimpleHeader from '../../components/SimpleHeader';
+
 import { Container, Form } from './styles';
 
 const NewRegister: React.FC = () => {
@@ -9,6 +14,9 @@ const NewRegister: React.FC = () => {
     const [value, setValue] = useState(0);
     const [date, setDate] = useState();
     const [description, setDescription] = useState('');
+    const [category, setCategory] = useState('');
+
+    const [isDropDownFocused, setIsDropDownFocused] = useState(false);
 
     const handleSubmit = useCallback(() => {
         const data = {
@@ -21,21 +29,45 @@ const NewRegister: React.FC = () => {
         console.log(data);
     }, [name, value, date, description]);
 
+    const handleFocusAnotherInput = useCallback(() => {
+        setIsDropDownFocused(v => !v);
+    }, []);
+
     return (
         <Container>
             <SimpleHeader title="Novo Registro" />
-            <Form>
-                <Input placeholder="Nome" onChangeText={setName} />
-                <Input placeholder="Valor" onChangeText={setValue} />
-                <Input placeholder="Data" onChangeText={setDate} />
-                <Input
-                    placeholder="Descrição"
-                    isTextAreaMode={true}
-                    onChangeText={setDescription}
-                />
+            <ScrollView nestedScrollEnabled={true}>
+                <Form>
+                    <Input
+                        placeholder="Nome"
+                        onChangeText={setName}
+                        onFocus={handleFocusAnotherInput}
+                    />
+                    <Input
+                        placeholder="Valor"
+                        onChangeText={setValue}
+                        onFocus={handleFocusAnotherInput}
+                        keyboardType="numeric"
+                    />
+                    <DropDown
+                        name="Categoria"
+                        value={category}
+                        setValue={setCategory}
+                        isFocused={isDropDownFocused}
+                    />
 
-                <Button textLabel="Registrar" onClick={handleSubmit} />
-            </Form>
+                    <CalendarInput />
+
+                    <Input
+                        placeholder="Descrição"
+                        isTextAreaMode={true}
+                        onChangeText={setDescription}
+                        onFocus={handleFocusAnotherInput}
+                    />
+
+                    <Button textLabel="Registrar" onClick={handleSubmit} />
+                </Form>
+            </ScrollView>
         </Container>
     );
 };

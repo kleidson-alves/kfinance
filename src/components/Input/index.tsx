@@ -1,18 +1,20 @@
 import React, { useCallback, useState } from 'react';
+import { TextInputProps } from 'react-native';
 import { Container } from './styles';
 
-interface InputProps {
-    placeholder: string;
+interface InputProps extends Omit<TextInputProps, 'accessibilityRole'> {
     maxLength?: number;
     isTextAreaMode?: boolean;
     onChangeText: (value: any) => void;
+    onFocus: () => void;
 }
 
 const Input: React.FC<InputProps> = ({
-    placeholder,
     maxLength = 50,
     isTextAreaMode = false,
     onChangeText,
+    onFocus,
+    ...props
 }) => {
     const [isFilled, setIsFilled] = useState(false);
     const [isFocused, setIsFocused] = useState(false);
@@ -30,26 +32,32 @@ const Input: React.FC<InputProps> = ({
         [onChangeText],
     );
 
+    const handleFocus = useCallback(() => {
+        onFocus();
+
+        setIsFocused(true);
+    }, [onFocus]);
+
     return isTextAreaMode ? (
         <Container
-            placeholder={placeholder}
             multiline={true}
             numberOfLines={8}
-            onFocus={_ => setIsFocused(true)}
+            onFocus={handleFocus}
             onBlur={_ => setIsFocused(false)}
             style={{ textAlignVertical: 'top' }}
             maxLength={maxLength}
             onChangeText={value => handleChangeText(value)}
             isFilled={isFilled || isFocused}
+            {...props}
         />
     ) : (
         <Container
-            placeholder={placeholder}
             maxLength={maxLength}
-            onFocus={_ => setIsFocused(true)}
+            onFocus={handleFocus}
             onBlur={_ => setIsFocused(false)}
             onChangeText={value => handleChangeText(value)}
             isFilled={isFilled || isFocused}
+            {...props}
         />
     );
 };

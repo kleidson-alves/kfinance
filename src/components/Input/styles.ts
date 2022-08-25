@@ -15,7 +15,7 @@ export const Container = styled.TextInput<TextInputProps>`
             props.isFilled
                 ? props.theme.colors.primary
                 : props.theme.colors.stroke};
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     border-radius: 10px;
 
     font-size: ${props => getFontSizeByValue(props.theme.sizes.input)};
