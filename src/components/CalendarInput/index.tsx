@@ -31,9 +31,16 @@ const Calendar: React.FC = () => {
                 onConfirm={handleConfirm}
                 mode="date"
                 date={value ? value : new Date()}
-                locale="pt-BR"
+                style={{
+                    backgroundColor: theme.colors.primary,
+                }}
+                pickerContainerStyleIOS={{
+                    backgroundColor: theme.colors.primary,
+                }}
+                modalStyleIOS={{ backgroundColor: theme.colors.orange }}
+                maximumDate={new Date()}
                 accentColor={theme.colors.primary}
-                textColor={theme.colors.positive}
+                locale={'pt-br'}
             />
         </Container>
     );
