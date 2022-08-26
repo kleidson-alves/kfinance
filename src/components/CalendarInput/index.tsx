@@ -3,16 +3,24 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { useTheme } from 'styled-components';
 import { Container, DateButton, TextSpan } from './styles';
 
-const Calendar: React.FC = () => {
+interface CalendarInputData {
+    setDate: (date: any) => void;
+}
+
+const CalendarInput: React.FC<CalendarInputData> = ({ setDate }) => {
     const theme = useTheme();
     const [isVisible, setIsvisible] = useState(false);
     const [value, setValue] = useState();
 
-    const handleConfirm = useCallback(date => {
-        setValue(date);
+    const handleConfirm = useCallback(
+        date => {
+            setValue(date);
+            setDate(date);
 
-        setIsvisible(false);
-    }, []);
+            setIsvisible(false);
+        },
+        [setDate],
+    );
 
     return (
         <Container isFilled={!!value}>
@@ -46,4 +54,4 @@ const Calendar: React.FC = () => {
     );
 };
 
-export default Calendar;
+export default CalendarInput;

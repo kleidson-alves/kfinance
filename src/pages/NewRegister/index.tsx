@@ -10,11 +10,11 @@ import SimpleHeader from '../../components/SimpleHeader';
 import { Container, Form } from './styles';
 
 const NewRegister: React.FC = () => {
-    const [name, setName] = useState('');
-    const [value, setValue] = useState(0);
+    const [name, setName] = useState();
+    const [value, setValue] = useState();
     const [date, setDate] = useState();
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
+    const [description, setDescription] = useState();
+    const [category, setCategory] = useState();
 
     const [isDropDownFocused, setIsDropDownFocused] = useState(false);
 
@@ -42,6 +42,7 @@ const NewRegister: React.FC = () => {
                         placeholder="Nome"
                         onChangeText={setName}
                         onFocus={handleFocusAnotherInput}
+                        maxLength={50}
                     />
                     <Input
                         placeholder="Valor"
@@ -56,13 +57,14 @@ const NewRegister: React.FC = () => {
                         isFocused={isDropDownFocused}
                     />
 
-                    <CalendarInput />
+                    <CalendarInput setDate={setDate} />
 
                     <Input
                         placeholder="Descrição"
                         isTextAreaMode={true}
                         onChangeText={setDescription}
                         onFocus={handleFocusAnotherInput}
+                        maxLength={500}
                     />
 
                     <Button textLabel="Registrar" onClick={handleSubmit} />
