@@ -1,3 +1,4 @@
+import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -7,27 +8,36 @@ import DropDown from '../../components/DropDown';
 import Input from '../../components/Input';
 import SimpleHeader from '../../components/SimpleHeader';
 
+import { useCategory } from '../../hooks/useCategory';
+import { useRegister } from '../../hooks/useRegister';
+
 import { Container, Form } from './styles';
 
 const NewRegister: React.FC = () => {
-    const [name, setName] = useState();
-    const [value, setValue] = useState();
-    const [date, setDate] = useState();
+    const navigation = useNavigation();
+
+    const [name, setName] = useState('');
+    const [value, setValue] = useState('');
+    const [date, setDate] = useState<Date>();
     const [description, setDescription] = useState();
-    const [category, setCategory] = useState();
+    const [category, setCategory] = useState('');
 
     const [isDropDownFocused, setIsDropDownFocused] = useState(false);
 
-    const handleSubmit = useCallback(() => {
-        const data = {
-            name,
-            value,
-            date,
-            description,
-        };
+    const { categories } = useCategory();
+    const { createRegister } = useRegister();
 
-        console.log(data);
-    }, [name, value, date, description]);
+    const handleSubmit = useCallback(async () => {
+        await createRegister({
+            name,
+            value: Number(value),
+            date: date!,
+            description,
+            category,
+        });
+
+        navigation.goBack();
+    }, [createRegister, name, value, date, description, category, navigation]);
 
     const handleFocusAnotherInput = useCallback(() => {
         setIsDropDownFocused(v => !v);
@@ -42,7 +52,7 @@ const NewRegister: React.FC = () => {
                         placeholder="Nome"
                         onChangeText={setName}
                         onFocus={handleFocusAnotherInput}
-                        maxLength={50}
+                        maxLength={30}
                     />
                     <Input
                         placeholder="Valor"
@@ -51,7 +61,9 @@ const NewRegister: React.FC = () => {
                         keyboardType="numeric"
                     />
                     <DropDown
+                        key={1}
                         name="Categoria"
+                        items={categories}
                         value={category}
                         setValue={setCategory}
                         isFocused={isDropDownFocused}
@@ -64,7 +76,7 @@ const NewRegister: React.FC = () => {
                         isTextAreaMode={true}
                         onChangeText={setDescription}
                         onFocus={handleFocusAnotherInput}
-                        maxLength={500}
+                        maxLength={300}
                     />
 
                     <Button textLabel="Registrar" onClick={handleSubmit} />

@@ -21,10 +21,12 @@ export const Container = styled(DropDownPicker)<ContainerProps>`
                 : props.theme.colors.stroke};
 `;
 
-export const ItemContainer = styled(RectButton)`
+export const ItemContent = styled.View`
     padding: 15px;
     border-radius: 5px;
 `;
+
+export const ItemContainer = styled(RectButton)``;
 
 export const ItemText = styled.Text`
     color: ${props => props.theme.colors.primary};

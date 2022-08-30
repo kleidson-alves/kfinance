@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useRegister } from '../../hooks/useRegister';
+import { MAX_ITEMS_PREVIEW_MODE, MONTHS } from '../../utils/constants';
 import RegisterItem from './RegisterItem';
-import { Container, Content, Divider, Month } from './styles';
 
-type RegisterProps = {
-    id: number;
-    type: string;
+import { List, Content, Divider, HeaderTable, Month, Year } from './styles';
+
+interface RegisterProps {
     name: string;
-    price: number;
-};
+    category: {
+        color: string;
+    };
+    value: number;
+}
 
 interface RegistersListProps {
     isPreviewMode?: boolean;
@@ -16,69 +20,44 @@ interface RegistersListProps {
 const RegistersList: React.FC<RegistersListProps> = ({
     isPreviewMode = false,
 }) => {
-    const registers: RegisterProps[] = [
-        {
-            id: 1,
-            type: 'comida',
-            name: 'Vila Tarego',
-            price: 36,
+    const { registers } = useRegister();
+
+    const allowNewHeaderTable = useCallback(
+        (index: number) => {
+            if (index === 0) {
+                return true;
+            }
+
+            const registerYear = registers[index].date.getFullYear();
+            const lastRegisterYear = registers[index - 1].date.getFullYear();
+
+            const registerMonth = registers[index].date.getMonth();
+            const lastRegisterMonth = registers[index - 1].date.getMonth();
+
+            if (
+                registerYear === lastRegisterYear &&
+                registerMonth === lastRegisterMonth
+            ) {
+                return false;
+            }
+
+            return true;
         },
-        {
-            id: 2,
-            type: 'lazer',
-            name: 'Vila Butiquim',
-            price: 60,
-        },
-        {
-            id: 3,
-            type: 'lazer',
-            name: 'Vila Tarego',
-            price: 36,
-        },
-        {
-            id: 4,
-            type: 'lazer',
-            name: 'Vila Butiquim',
-            price: 60,
-        },
-        {
-            id: 5,
-            type: 'comida',
-            name: 'Vila Tarego',
-            price: 36,
-        },
-        {
-            id: 6,
-            type: 'lazer',
-            name: 'Vila Butiquim',
-            price: 60,
-        },
-        {
-            id: 7,
-            type: 'lazer',
-            name: 'Vila Tarego',
-            price: 36,
-        },
-        {
-            id: 8,
-            type: 'comida',
-            name: 'Vila Butiquim',
-            price: 60,
-        },
-        {
-            id: 9,
-            type: 'lazer',
-            name: 'Vila Tarego',
-            price: 36,
-        },
-    ];
+        [registers],
+    );
 
     return (
         <>
             {isPreviewMode ? (
-                <Container
+                <List
                     data={registers.filter((register, index) => {
-                        if (index < 8) {
+                        const currentDate = new Date();
+                        if (
+                            index < MAX_ITEMS_PREVIEW_MODE &&
+                            register.date.getFullYear() ===
+                                currentDate.getFullYear() &&
+                            register.date.getMonth() === currentDate.getMonth()
+                        ) {
                             return register;
                         }
                     })}
@@ -88,12 +67,33 @@ const RegistersList: React.FC<RegistersListProps> = ({
                 />
             ) : (
                 <Content>
-                    <Month>Julho</Month>
-                    <Divider />
-                    <Container
+                    <List
                         data={registers}
-                        renderItem={({ item }) => (
-                            <RegisterItem data={item as RegisterProps} />
+                        renderItem={({ item, index }) => (
+                            <>
+                                {allowNewHeaderTable(index) && (
+                                    <>
+                                        <HeaderTable>
+                                            <Month>
+                                                {
+                                                    MONTHS[
+                                                        registers[
+                                                            index
+                                                        ].date.getMonth()
+                                                    ]
+                                                }
+                                            </Month>
+                                            <Year>
+                                                {registers[
+                                                    index
+                                                ].date.getFullYear()}
+                                            </Year>
+                                        </HeaderTable>
+                                        <Divider />
+                                    </>
+                                )}
+                                <RegisterItem data={item as RegisterProps} />
+                            </>
                         )}
                     />
                 </Content>

@@ -4,9 +4,11 @@ import { Container } from './styles';
 import Logo from '../../assets/logo-big.svg';
 import { Animated } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useCategory } from '../../hooks/useCategory';
 
 const Splash: React.FC = () => {
     const opacity = useRef(new Animated.Value(0)).current;
+    const { loadCategories } = useCategory();
     const navigate = useNavigation();
 
     useEffect(() => {
@@ -16,13 +18,13 @@ const Splash: React.FC = () => {
             useNativeDriver: true,
         }).start();
 
-        setTimeout(() => {
+        loadCategories().then(_ =>
             navigate.reset({
                 index: 0,
-                routes: [{ name: 'Drawer' }],
-            });
-        }, 50);
-    }, [opacity, navigate]);
+                routes: [{ name: 'Drawer' as never }],
+            }),
+        );
+    }, [opacity, navigate, loadCategories]);
 
     return (
         <Container style={{ opacity }}>

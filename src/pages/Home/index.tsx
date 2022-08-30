@@ -3,7 +3,7 @@ import React from 'react';
 
 import { FloatActionButton } from '../../components/Buttons';
 import Header from '../../components/Header';
-import RegistersTable from '../../components/RegisterList';
+import RegisterList from '../../components/RegisterList';
 import Summary from '../../components/Summary';
 
 import {
@@ -29,7 +29,7 @@ const Home: React.FC = () => {
                 <LatestsRegistersSection>
                     <Title>Últimos Registros</Title>
 
-                    <RegistersTable isPreviewMode={true} />
+                    <RegisterList isPreviewMode={true} />
                 </LatestsRegistersSection>
             </Content>
             <FloatActionButton

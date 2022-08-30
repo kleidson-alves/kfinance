@@ -7,15 +7,18 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 import theme from './src/theme';
 import Routes from './src/routes';
+import AppProvider from './src/hooks';
 
 const App = () => {
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
             <ThemeProvider theme={theme}>
-                <NavigationContainer>
-                    <StatusBar hidden />
-                    <Routes />
-                </NavigationContainer>
+                <AppProvider>
+                    <NavigationContainer>
+                        <StatusBar hidden />
+                        <Routes />
+                    </NavigationContainer>
+                </AppProvider>
             </ThemeProvider>
         </GestureHandlerRootView>
     );

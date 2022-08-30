@@ -4,55 +4,49 @@ import { Keyboard } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 import { useTheme } from 'styled-components';
 
-import { Container, Divider, ItemContainer, ItemText } from './styles';
+import {
+    Container,
+    Divider,
+    ItemContainer,
+    ItemContent,
+    ItemText,
+} from './styles';
+
+interface ItemProps {
+    id: string;
+    name: string;
+}
 
 interface DropDownProps {
     name: string;
     isFocused: boolean;
     value: any;
+    items: ItemProps[];
     setValue: (value: any) => void;
 }
 
 const DropDown: React.FC<DropDownProps> = ({
+    name,
+    items,
     value,
     setValue,
-    name,
     isFocused,
 }) => {
     const [open, setOpen] = useState(false);
     const theme = useTheme();
 
-    const items = [
-        {
-            label: 'teste',
-            value: 'teste',
-        },
-        {
-            label: 'teste2',
-            value: 'teste2',
-        },
-        {
-            label: 'teste3',
-            value: 'teste3',
-        },
-        {
-            label: 'teste4',
-            value: 'teste4',
-        },
-        {
-            label: 'teste5',
-            value: 'teste5',
-        },
-    ];
-
     useEffect(() => {
         setOpen(false);
     }, [isFocused]);
 
+    const itemsValue = items.map(item => {
+        return { label: item.name, value: item.name };
+    });
+
     return (
         <Container
             placeholder={name}
-            items={items}
+            items={itemsValue}
             open={open}
             value={value}
             isFilled={!!value}
@@ -61,16 +55,17 @@ const DropDown: React.FC<DropDownProps> = ({
             dropDownContainerStyle={{ borderColor: theme.colors.stroke }}
             renderListItem={({ item }) => {
                 return (
-                    <>
-                        <ItemContainer
-                            onPress={() => {
-                                setValue(item.value);
-                                setOpen(false);
-                            }}>
+                    <ItemContainer
+                        onPress={() => {
+                            setValue(item.value);
+
+                            setOpen(false);
+                        }}>
+                        <ItemContent>
                             <ItemText>{item.value}</ItemText>
-                        </ItemContainer>
+                        </ItemContent>
                         <Divider />
-                    </>
+                    </ItemContainer>
                 );
             }}
             ArrowUpIconComponent={() => (
