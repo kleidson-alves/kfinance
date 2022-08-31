@@ -10,3 +10,9 @@ export function formatDate(date: Date) {
         timeZone: 'UTC',
     }).format(date);
 }
+
+export function formatNumber(number: string) {
+    number = number.replace(',', '.');
+
+    return Number(number);
+}

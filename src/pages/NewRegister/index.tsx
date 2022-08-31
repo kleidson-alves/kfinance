@@ -1,5 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
 import React, { useCallback, useState } from 'react';
+import * as Yup from 'yup';
+
+import { useNavigation } from '@react-navigation/native';
+import { useCategory } from '../../hooks/useCategory';
+import { useRegister } from '../../hooks/useRegister';
+
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Button } from '../../components/Buttons';
@@ -8,10 +13,8 @@ import DropDown from '../../components/DropDown';
 import Input from '../../components/Input';
 import SimpleHeader from '../../components/SimpleHeader';
 
-import { useCategory } from '../../hooks/useCategory';
-import { useRegister } from '../../hooks/useRegister';
-
 import { Container, Form } from './styles';
+import { formatNumber } from '../../utils/formaters';
 
 const NewRegister: React.FC = () => {
     const navigation = useNavigation();
@@ -28,16 +31,34 @@ const NewRegister: React.FC = () => {
     const { createRegister } = useRegister();
 
     const handleSubmit = useCallback(async () => {
-        await createRegister({
+        const schema = Yup.object().shape({
+            name: Yup.string().required(),
+            value: Yup.number().required().positive(),
+            date: Yup.date().required(),
+            description: Yup.string().max(400),
+            category: Yup.string().required(),
+        });
+
+        const newRegister = {
             name,
-            value: Number(value),
+            value: formatNumber(value),
             date: date!,
             description,
             category,
-        });
+        };
+
+        const validation = await schema
+            .validate(newRegister, { abortEarly: true })
+            .catch(err => {
+                console.log(err);
+            });
+
+        if (validation) {
+            await createRegister(newRegister);
+        }
 
         navigation.goBack();
-    }, [createRegister, name, value, date, description, category, navigation]);
+    }, [name, value, date, description, category, navigation, createRegister]);
 
     const handleFocusAnotherInput = useCallback(() => {
         setIsDropDownFocused(v => !v);
