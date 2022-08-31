@@ -34,6 +34,7 @@ interface CreateRegisterProps {
 interface RegisterContextData {
     registers: IRegister[];
     createRegister: (data: CreateRegisterProps) => Promise<IRegister>;
+    loadRegisterByDate: (date: Date) => IRegister[];
 }
 
 const RegisterContext = createContext<RegisterContextData>(
@@ -116,16 +117,26 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
         return newRegister;
     };
 
-    // const loadRegisterByDate = useCallback(async () => {
-    //     collection.query().fetch();
-    // }, [collection]);
+    const loadRegisterByDate = useCallback(
+        (date: Date) => {
+            const registersByDate = registers.filter(
+                r =>
+                    r.date.getFullYear() === date.getFullYear() &&
+                    r.date.getMonth() === date.getMonth(),
+            );
+
+            return registersByDate;
+        },
+        [registers],
+    );
 
     useEffect(() => {
         loadRegisters();
     }, [loadRegisters]);
 
     return (
-        <RegisterContext.Provider value={{ registers, createRegister }}>
+        <RegisterContext.Provider
+            value={{ registers, createRegister, loadRegisterByDate }}>
             {children}
         </RegisterContext.Provider>
     );

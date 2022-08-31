@@ -1,6 +1,7 @@
 import React, { useCallback, useState } from 'react';
+import { startOfDay } from 'date-fns';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { useTheme } from 'styled-components';
+import { formatDate } from '../../utils/formaters';
 import { Container, DateButton, TextSpan } from './styles';
 
 interface CalendarInputData {
@@ -8,14 +9,13 @@ interface CalendarInputData {
 }
 
 const CalendarInput: React.FC<CalendarInputData> = ({ setDate }) => {
-    const theme = useTheme();
     const [isVisible, setIsvisible] = useState(false);
-    const [value, setValue] = useState();
+    const [value, setValue] = useState<Date>();
 
     const handleConfirm = useCallback(
         date => {
-            setValue(date);
-            setDate(date);
+            setValue(startOfDay(date));
+            setDate(startOfDay(date));
 
             setIsvisible(false);
         },
@@ -26,11 +26,7 @@ const CalendarInput: React.FC<CalendarInputData> = ({ setDate }) => {
         <Container isFilled={!!value}>
             <DateButton onPress={() => setIsvisible(true)}>
                 <TextSpan isFilled={!!value}>
-                    {value
-                        ? Intl.DateTimeFormat('pt-BR', {
-                              timeZone: 'UTC',
-                          }).format(value)
-                        : 'Data'}
+                    {value ? formatDate(value) : 'Data'}
                 </TextSpan>
             </DateButton>
             <DateTimePickerModal
@@ -39,16 +35,8 @@ const CalendarInput: React.FC<CalendarInputData> = ({ setDate }) => {
                 onConfirm={handleConfirm}
                 mode="date"
                 date={value ? value : new Date()}
-                style={{
-                    backgroundColor: theme.colors.primary,
-                }}
-                pickerContainerStyleIOS={{
-                    backgroundColor: theme.colors.primary,
-                }}
-                modalStyleIOS={{ backgroundColor: theme.colors.orange }}
                 maximumDate={new Date()}
-                accentColor={theme.colors.primary}
-                locale={'pt-br'}
+                timeZoneOffsetInMinutes={-3 * 60} // - 180
             />
         </Container>
     );

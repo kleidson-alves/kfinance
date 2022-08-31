@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatValue } from '../../../utils/formaters';
 
 import { Container, Info, Tag, Text, ValueInfo } from './styles';
 
@@ -20,12 +21,7 @@ const RegisterItem: React.FC<RegisterItemProps> = ({ data }) => {
                 <Text>{data.name}</Text>
             </Info>
             <ValueInfo>
-                <Text>
-                    {Intl.NumberFormat('pt-BR', {
-                        style: 'currency',
-                        currency: 'BRL',
-                    }).format(data.value)}
-                </Text>
+                <Text>{formatValue(data.value)}</Text>
             </ValueInfo>
         </Container>
     );

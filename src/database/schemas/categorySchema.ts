@@ -11,5 +11,9 @@ export const categorySchema = tableSchema({
             name: 'color',
             type: 'string',
         },
+        {
+            name: 'is_positive',
+            type: 'boolean',
+        },
     ],
 });

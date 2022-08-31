@@ -1,4 +1,3 @@
-import { Q } from '@nozbe/watermelondb';
 import React, { useCallback, useContext, useState } from 'react';
 
 import { createContext, ReactNode } from 'react';
@@ -13,6 +12,7 @@ interface ICategory {
     id: string;
     name: string;
     color: string;
+    isPositive: boolean;
 }
 
 interface CategoryContextData {
@@ -46,9 +46,7 @@ export function CategoryProvider({ children }: CategoryProviderProps) {
     }, [collection]);
 
     const loadCategories = useCallback(async () => {
-        const categoryAlreadyExists = await collection
-            .query(Q.where('name', 'Lazer'))
-            .fetch();
+        const categoryAlreadyExists = await collection.query().fetch();
 
         if (categoryAlreadyExists.length === 0) {
             database.write(async () => {
@@ -56,25 +54,30 @@ export function CategoryProvider({ children }: CategoryProviderProps) {
                     collection.prepareCreate(category => {
                         category.name = 'Lazer';
                         category.color = '#662E9B';
+                        category.isPositive = false;
                     }),
                     collection.prepareCreate(category => {
                         category.name = 'Alimentação';
                         category.color = '#F9C80E';
+                        category.isPositive = false;
                     }),
 
                     collection.prepareCreate(category => {
                         category.name = 'Despesa';
                         category.color = '#EA3546';
+                        category.isPositive = false;
                     }),
 
                     collection.prepareCreate(category => {
                         category.name = 'Ganho';
                         category.color = '#A4D604';
+                        category.isPositive = true;
                     }),
 
                     collection.prepareCreate(category => {
                         category.name = 'Outros';
                         category.color = '#43BCCD';
+                        category.isPositive = false;
                     }),
                 );
             });

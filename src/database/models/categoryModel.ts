@@ -13,4 +13,7 @@ export default class CategoryModel extends Model {
 
     @field('color')
     color!: string;
+
+    @field('is_positive')
+    isPositive!: boolean;
 }
