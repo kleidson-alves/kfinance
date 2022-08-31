@@ -23,10 +23,10 @@ const Header: React.FC = () => {
     const [color, setColor] = useState('#E53030');
     const theme = useTheme();
     const navigation = useNavigation();
-    const { loadRegisterByDate } = useRegister();
+    const { getRegistersByDate } = useRegister();
 
     const calculateBallance = useCallback(async () => {
-        const registers = loadRegisterByDate(new Date());
+        const registers = getRegistersByDate(new Date());
 
         const value = registers.reduce((acc, cur) => {
             if (cur.category.isPositive) {
@@ -43,7 +43,7 @@ const Header: React.FC = () => {
         }
 
         setBallance(value);
-    }, [loadRegisterByDate, theme]);
+    }, [getRegistersByDate, theme]);
 
     useEffect(() => {
         calculateBallance();

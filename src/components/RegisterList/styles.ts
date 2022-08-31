@@ -5,9 +5,7 @@ export const List = styled.FlatList`
     margin-top: 20px;
 `;
 
-export const Content = styled.View`
-    margin-top: 30px;
-`;
+export const Content = styled.View``;
 
 export const Month = styled.Text`
     color: ${props => props.theme.colors.primary};

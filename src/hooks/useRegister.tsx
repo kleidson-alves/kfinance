@@ -15,7 +15,7 @@ interface RegisterProviderProps {
     children: ReactNode;
 }
 
-interface IRegister {
+export interface IRegister {
     id: string;
     name: string;
     value: number;
@@ -34,7 +34,8 @@ interface CreateRegisterProps {
 interface RegisterContextData {
     registers: IRegister[];
     createRegister: (data: CreateRegisterProps) => Promise<IRegister>;
-    loadRegisterByDate: (date: Date) => IRegister[];
+    getRegistersByDate: (date: Date) => IRegister[];
+    getRegisterById: (id: string) => Promise<IRegister>;
 }
 
 const RegisterContext = createContext<RegisterContextData>(
@@ -117,7 +118,7 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
         return newRegister;
     };
 
-    const loadRegisterByDate = useCallback(
+    const getRegistersByDate = useCallback(
         (date: Date) => {
             const registersByDate = registers.filter(
                 r =>
@@ -130,13 +131,42 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
         [registers],
     );
 
+    const getRegisterById = useCallback(
+        async (id: string) => {
+            const allRegisters = await collection
+                .query(Q.where('id', id))
+                .fetch();
+
+            const r = allRegisters[0];
+
+            const category = await r.category.fetch();
+
+            const register = {
+                id: r.id,
+                name: r.name,
+                category: category!,
+                description: r.description,
+                value: r.value,
+                date: new Date(r.year, r.month, r.day),
+            };
+
+            return register;
+        },
+        [collection],
+    );
+
     useEffect(() => {
         loadRegisters();
     }, [loadRegisters]);
 
     return (
         <RegisterContext.Provider
-            value={{ registers, createRegister, loadRegisterByDate }}>
+            value={{
+                registers,
+                createRegister,
+                getRegistersByDate,
+                getRegisterById,
+            }}>
             {children}
         </RegisterContext.Provider>
     );
