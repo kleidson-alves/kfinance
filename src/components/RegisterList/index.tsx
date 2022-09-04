@@ -1,6 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useRegister } from '../../hooks/useRegister';
-import { MAX_ITEMS_PREVIEW_MODE, MONTHS } from '../../utils/constants';
+import {
+    DEFAULT_CATEGORY_FILTER,
+    MAX_ITEMS_PREVIEW_MODE,
+    MONTHS,
+} from '../../utils/constants';
 
 import RegisterItem from './RegisterItem';
 
@@ -17,17 +21,19 @@ interface RegisterProps {
 
 interface RegistersListProps {
     isPreviewMode?: boolean;
+    filterBy?: string;
 }
 
 const RegistersList: React.FC<RegistersListProps> = ({
     isPreviewMode = false,
+    filterBy = DEFAULT_CATEGORY_FILTER,
 }) => {
     const { registers } = useRegister();
     const [data, setData] = useState<any>();
 
     const allowNewHeaderTable = useCallback(
         (index: number) => {
-            if (isPreviewMode) {
+            if (isPreviewMode || !registers[index]) {
                 return false;
             }
             if (index === 0) {
@@ -66,10 +72,12 @@ const RegistersList: React.FC<RegistersListProps> = ({
             });
 
             setData(array);
+        } else if (filterBy !== DEFAULT_CATEGORY_FILTER) {
+            setData(registers.filter(r => r.category.name === filterBy));
         } else {
             setData(registers);
         }
-    }, [isPreviewMode, registers]);
+    }, [filterBy, isPreviewMode, registers]);
 
     return (
         <Content>

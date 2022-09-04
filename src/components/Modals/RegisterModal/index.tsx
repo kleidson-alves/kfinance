@@ -1,17 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Dimensions } from 'react-native';
 import Modal from 'react-native-modal';
+
+import { IRegister, useRegister } from '../../../hooks/useRegister';
+import { formatDate, formatValue } from '../../../utils/formaters';
 import { useTheme } from 'styled-components';
-import { IRegister, useRegister } from '../../hooks/useRegister';
-import { formatDate, formatValue } from '../../utils/formaters';
+
+import Icon from 'react-native-vector-icons/FontAwesome';
+
 import {
     BaseText,
     Container,
-    Content,
+    RegisterContent,
     Description,
     InfoView,
     Tag,
     TagText,
+    DeleteButton,
 } from './styles';
 
 interface RegisterModalProps {
@@ -28,11 +33,18 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
     const theme = useTheme();
     const [register, setRegister] = useState<IRegister>();
 
-    const { getRegisterById } = useRegister();
+    const { getRegisterById, deleteRegister } = useRegister();
+
+    const handleDeleteRegister = useCallback(async () => {
+        await deleteRegister(registerId);
+
+        setIsVisible(false);
+    }, [deleteRegister, registerId, setIsVisible]);
 
     useEffect(() => {
         getRegisterById(registerId).then(r => setRegister(r));
     }, [getRegisterById, registerId]);
+
     return (
         <Modal
             isVisible={isVisible}
@@ -42,6 +54,13 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
             <Container>
                 {register ? (
                     <>
+                        <DeleteButton onPress={handleDeleteRegister}>
+                            <Icon
+                                name="trash"
+                                color={theme.colors.negative}
+                                size={25}
+                            />
+                        </DeleteButton>
                         <InfoView>
                             <BaseText size={theme.sizes.bodySmall}>
                                 {formatDate(register.date)}
@@ -56,7 +75,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                                 {formatValue(register.value)}
                             </BaseText>
                         </InfoView>
-                        <Content>
+                        <RegisterContent>
                             <BaseText size={theme.sizes.subtitle}>
                                 {register.name}
                             </BaseText>
@@ -65,7 +84,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({
                                     {register.description}
                                 </Description>
                             )}
-                        </Content>
+                        </RegisterContent>
                         <Tag color={register.category.color}>
                             <TagText>{register.category.name}</TagText>
                         </Tag>

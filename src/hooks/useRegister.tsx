@@ -34,6 +34,7 @@ interface CreateRegisterProps {
 interface RegisterContextData {
     registers: IRegister[];
     createRegister: (data: CreateRegisterProps) => Promise<IRegister>;
+    deleteRegister: (id: string) => Promise<void>;
     getRegistersByDate: (date: Date) => IRegister[];
     getRegisterById: (id: string) => Promise<IRegister>;
 }
@@ -118,6 +119,19 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
         return newRegister;
     };
 
+    const deleteRegister = useCallback(
+        async (id: string) => {
+            setRegisters(state => state.filter(r => r.id !== id));
+
+            await database.write(async () => {
+                const register = await collection.find(id);
+
+                await register.destroyPermanently();
+            });
+        },
+        [collection],
+    );
+
     const getRegistersByDate = useCallback(
         (date: Date) => {
             const registersByDate = registers.filter(
@@ -133,11 +147,7 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
 
     const getRegisterById = useCallback(
         async (id: string) => {
-            const allRegisters = await collection
-                .query(Q.where('id', id))
-                .fetch();
-
-            const r = allRegisters[0];
+            const r = await collection.find(id);
 
             const category = await r.category.fetch();
 
@@ -166,6 +176,7 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
                 createRegister,
                 getRegistersByDate,
                 getRegisterById,
+                deleteRegister,
             }}>
             {children}
         </RegisterContext.Provider>

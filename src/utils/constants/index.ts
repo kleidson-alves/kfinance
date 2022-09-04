@@ -14,3 +14,5 @@ export const MONTHS = [
 ];
 
 export const MAX_ITEMS_PREVIEW_MODE = 8;
+
+export const DEFAULT_CATEGORY_FILTER = 'Todas';

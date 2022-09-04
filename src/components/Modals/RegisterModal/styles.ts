@@ -1,12 +1,18 @@
 import styled from 'styled-components/native';
-import { getFontSizeByValue } from '../../utils/fontSize';
+import { getFontSizeByValue } from '../../../utils/fontSize';
 
 export const Container = styled.View`
     align-self: center;
     background-color: ${props => props.theme.colors.background};
-    padding: 30px;
+    padding: 15px 30px 30px 30px;
     border-radius: 15px;
     width: 100%;
+`;
+
+export const DeleteButton = styled.TouchableOpacity`
+    margin-bottom: 20px;
+
+    align-self: flex-end;
 `;
 
 export const InfoView = styled.View`
@@ -27,7 +33,7 @@ export const BaseText = styled.Text<BaseTextProps>`
         props.color ? props.color : props.theme.colors.textBlack};
 `;
 
-export const Content = styled.View`
+export const RegisterContent = styled.View`
     align-items: center;
 `;
 

@@ -22,14 +22,18 @@ export const Actions = styled.View`
     align-items: center;
 `;
 
-export const FilterInfo = styled.View`
+interface InfoProps {
+    color: string;
+}
+
+export const FilterInfo = styled.View<InfoProps>`
     padding: 10px;
-    border: 1px solid ${props => props.theme.colors.primary};
+    border: 1px solid ${props => props.color};
     justify-content: center;
 `;
 
-export const FilterInfoText = styled.Text`
-    color: ${props => props.theme.colors.primary};
+export const FilterInfoText = styled.Text<InfoProps>`
+    color: ${props => props.color};
     font-family: ${props => props.theme.fonts.regular};
     font-size: ${props => getFontSizeByValue(props.theme.sizes.bodySmall)};
 `;

@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react';
 import { formatValue } from '../../../utils/formaters';
-import RegisterModal from '../../RegisterModal';
+import { RegisterModal } from '../../Modals';
 
 import { Container, Info, Tag, Text, ValueInfo } from './styles';
 
