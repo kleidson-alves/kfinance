@@ -20,7 +20,7 @@ export const HeaderTable = styled.View`
 `;
 
 export const Year = styled.Text`
-    color: #b8bdb5;
+    color: ${props => props.theme.colors.darkStroke};
     font-size: ${getFontSizeByValue(12)};
     font-family: ${props => props.theme.fonts.regular};
 `;

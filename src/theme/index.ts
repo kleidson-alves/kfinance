@@ -4,6 +4,7 @@ export default {
         secondary: '#F9C80E',
         background: '#FFFFFF',
         stroke: '#F5F5F5',
+        darkStroke: '#b8bdb5',
 
         positive: '#A4D604',
         negative: '#EA3546',

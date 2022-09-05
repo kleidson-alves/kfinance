@@ -3,7 +3,7 @@ import {
     DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
 import { useTheme } from 'styled-components';
 import { TextSpan } from '../Header/styles';
@@ -20,10 +20,12 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
     const theme = useTheme();
     const navigation = useNavigation();
 
+    const [page, setPage] = useState('Home');
+
     return (
         <Container>
             <ConfigLabel
-                onPress={() => navigation.navigate({ name: 'Registers' })}>
+                onPress={() => navigation.navigate('Registers' as never)}>
                 <Item>
                     <ItemText>
                         <ItemTextSimple>Configure o seu perfil,</ItemTextSimple>
@@ -37,11 +39,19 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
                 </Item>
             </ConfigLabel>
             <DrawerContentScrollView {...props}>
-                <CustomDrawerItem icon="home" name="Home" navigateTo="Home" />
+                <CustomDrawerItem
+                    icon="home"
+                    name="Home"
+                    navigateTo="Home"
+                    setPage={setPage}
+                    currentPage={page}
+                />
                 <CustomDrawerItem
                     icon="file-text-o"
                     name="Registros"
                     navigateTo="Registers"
+                    setPage={setPage}
+                    currentPage={page}
                 />
             </DrawerContentScrollView>
         </Container>
