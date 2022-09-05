@@ -121,13 +121,12 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
 
     const deleteRegister = useCallback(
         async (id: string) => {
-            setRegisters(state => state.filter(r => r.id !== id));
-
             await database.write(async () => {
                 const register = await collection.find(id);
 
                 await register.destroyPermanently();
             });
+            setRegisters(state => state.filter(r => r.id !== id));
         },
         [collection],
     );
