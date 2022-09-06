@@ -69,7 +69,13 @@ const Header: React.FC = () => {
             </Actions>
 
             <Balance>
-                <Icon name="arrow-up-circle" color={color} size={30} />
+                <Icon
+                    name={
+                        ballance < 0 ? 'arrow-down-circle' : 'arrow-up-circle'
+                    }
+                    color={color}
+                    size={30}
+                />
                 <BalanceSpan color={color}>{formatValue(ballance)}</BalanceSpan>
             </Balance>
         </Container>

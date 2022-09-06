@@ -33,18 +33,18 @@ const RegistersList: React.FC<RegistersListProps> = ({
 
     const allowNewHeaderTable = useCallback(
         (index: number) => {
-            if (isPreviewMode || !registers[index]) {
+            if (isPreviewMode || !data[index]) {
                 return false;
             }
             if (index === 0) {
                 return true;
             }
 
-            const registerYear = registers[index].date.getFullYear();
-            const lastRegisterYear = registers[index - 1].date.getFullYear();
+            const registerYear = data[index].date.getFullYear();
+            const lastRegisterYear = data[index - 1].date.getFullYear();
 
-            const registerMonth = registers[index].date.getMonth();
-            const lastRegisterMonth = registers[index - 1].date.getMonth();
+            const registerMonth = data[index].date.getMonth();
+            const lastRegisterMonth = data[index - 1].date.getMonth();
 
             if (
                 registerYear === lastRegisterYear &&
@@ -55,7 +55,7 @@ const RegistersList: React.FC<RegistersListProps> = ({
 
             return true;
         },
-        [isPreviewMode, registers],
+        [isPreviewMode, data],
     );
 
     useEffect(() => {
@@ -89,14 +89,10 @@ const RegistersList: React.FC<RegistersListProps> = ({
                             <>
                                 <HeaderTable>
                                     <Month>
-                                        {
-                                            MONTHS[
-                                                registers[index].date.getMonth()
-                                            ]
-                                        }
+                                        {MONTHS[data[index].date.getMonth()]}
                                     </Month>
                                     <Year>
-                                        {registers[index].date.getFullYear()}
+                                        {data[index].date.getFullYear()}
                                     </Year>
                                 </HeaderTable>
                                 <Divider />

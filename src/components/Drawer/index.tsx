@@ -1,13 +1,15 @@
+import React, { useEffect, useState } from 'react';
 import {
     DrawerContentComponentProps,
     DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
 import Icon from 'react-native-vector-icons/SimpleLineIcons';
+
 import { useTheme } from 'styled-components';
 import { TextSpan } from '../Header/styles';
 import CustomDrawerItem from './DrawerItem';
+
 import {
     ConfigLabel,
     Container,
@@ -16,16 +18,31 @@ import {
     ItemTextSimple,
 } from './styles';
 
+interface IconProps {
+    [label: string]: string;
+}
+
 const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
     const theme = useTheme();
     const navigation = useNavigation();
 
+    const pages = props.state.routeNames;
     const [page, setPage] = useState('Home');
+
+    const [icons, setIcons] = useState<IconProps>({});
+
+    useEffect(() => {
+        setIcons({
+            home: 'home',
+            registros: 'file-text-o',
+            planejamento: 'money',
+        });
+    }, []);
 
     return (
         <Container>
             <ConfigLabel
-                onPress={() => navigation.navigate('Registers' as never)}>
+                onPress={() => navigation.navigate('Registros' as never)}>
                 <Item>
                     <ItemText>
                         <ItemTextSimple>Configure o seu perfil,</ItemTextSimple>
@@ -39,20 +56,19 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
                 </Item>
             </ConfigLabel>
             <DrawerContentScrollView {...props}>
-                <CustomDrawerItem
-                    icon="home"
-                    name="Home"
-                    navigateTo="Home"
-                    setPage={setPage}
-                    currentPage={page}
-                />
-                <CustomDrawerItem
-                    icon="file-text-o"
-                    name="Registros"
-                    navigateTo="Registers"
-                    setPage={setPage}
-                    currentPage={page}
-                />
+                {pages.map(p => (
+                    <CustomDrawerItem
+                        key={p}
+                        icon={
+                            icons[p.toLocaleLowerCase()]
+                                ? icons[p.toLocaleLowerCase()]
+                                : 'question'
+                        }
+                        name={p}
+                        setPage={setPage}
+                        currentPage={page}
+                    />
+                ))}
             </DrawerContentScrollView>
         </Container>
     );

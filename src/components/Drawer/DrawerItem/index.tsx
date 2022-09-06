@@ -7,7 +7,6 @@ import { useTheme } from 'styled-components';
 interface CustomDrawerIntemProps {
     icon: string;
     name: string;
-    navigateTo: string;
     setPage: (page: string) => void;
     currentPage: string;
 }
@@ -15,7 +14,6 @@ interface CustomDrawerIntemProps {
 const CustomDrawerItem: React.FC<CustomDrawerIntemProps> = ({
     icon,
     name,
-    navigateTo,
     setPage,
     currentPage,
 }: CustomDrawerIntemProps) => {
@@ -24,8 +22,8 @@ const CustomDrawerItem: React.FC<CustomDrawerIntemProps> = ({
 
     const handleSelectItem = useCallback(() => {
         setPage(name);
-        navigation.navigate(navigateTo as never);
-    }, [name, navigateTo, navigation, setPage]);
+        navigation.navigate(name as never);
+    }, [name, navigation, setPage]);
     return (
         <DrawerItem
             label={name}
