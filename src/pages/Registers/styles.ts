@@ -1,6 +1,5 @@
 import styled from 'styled-components/native';
 import { RectButton } from 'react-native-gesture-handler';
-import Icon from 'react-native-vector-icons/FontAwesome';
 
 import { getFontSizeByValue } from '../../utils/fontSize';
 
@@ -43,8 +42,4 @@ export const FilterButton = styled(RectButton)`
     background: ${props => props.theme.colors.background};
     border-radius: 10px;
     padding: 8px;
-`;
-
-export const FilterIcon = styled(Icon)`
-    color: ${props => props.theme.colors.primary};
 `;

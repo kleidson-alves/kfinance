@@ -6,7 +6,7 @@ interface InputProps extends Omit<TextInputProps, 'accessibilityRole'> {
     maxLength?: number;
     isTextAreaMode?: boolean;
     onChangeText: (value: any) => void;
-    onFocus: () => void;
+    onFocus?: () => void;
 }
 
 const Input: React.FC<InputProps> = ({
@@ -33,7 +33,9 @@ const Input: React.FC<InputProps> = ({
     );
 
     const handleFocus = useCallback(() => {
-        onFocus();
+        if (onFocus) {
+            onFocus();
+        }
 
         setIsFocused(true);
     }, [onFocus]);

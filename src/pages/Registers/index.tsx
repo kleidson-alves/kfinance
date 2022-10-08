@@ -4,13 +4,13 @@ import { useNavigation } from '@react-navigation/native';
 import { FloatActionButton } from '../../components/Buttons';
 import Header from '../../components/Header';
 import RegisterList from '../../components/RegisterList';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 import {
     Actions,
     Container,
     Content,
     FilterButton,
-    FilterIcon,
     FilterInfo,
     FilterInfoText,
 } from './styles';
@@ -59,7 +59,11 @@ const Registers: React.FC = () => {
                         </FilterInfoText>
                     </FilterInfo>
                     <FilterButton onPress={() => setFilterModalIsVisible(true)}>
-                        <FilterIcon name="sliders" size={25} />
+                        <Icon
+                            name="sliders"
+                            size={25}
+                            color={categoryFilter.color}
+                        />
                     </FilterButton>
                 </Actions>
                 <RegisterList filterBy={categoryFilter.name} />

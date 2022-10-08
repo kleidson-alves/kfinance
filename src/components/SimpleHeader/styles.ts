@@ -7,7 +7,9 @@ export const Container = styled.View`
     padding: 20px;
 `;
 
-export const Action = styled(TouchableWithoutFeedback)``;
+export const Action = styled(TouchableWithoutFeedback)`
+    margin-bottom: 15px;
+`;
 
 export const BackArrow = styled(Icon)`
     color: ${props => props.theme.colors.primary};

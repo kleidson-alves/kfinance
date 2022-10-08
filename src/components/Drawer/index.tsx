@@ -4,7 +4,8 @@ import {
     DrawerContentScrollView,
 } from '@react-navigation/drawer';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/SimpleLineIcons';
+
+import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 import { useTheme } from 'styled-components';
 import { TextSpan } from '../Header/styles';
@@ -19,7 +20,10 @@ import {
 } from './styles';
 
 interface IconProps {
-    [label: string]: string;
+    [label: string]: {
+        name: string;
+        class: string;
+    };
 }
 
 const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
@@ -33,9 +37,10 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
 
     useEffect(() => {
         setIcons({
-            home: 'home',
-            registros: 'file-text-o',
-            planejamento: 'money',
+            home: { name: 'home', class: 'FA' },
+            registros: { name: 'file-text-o', class: 'FA' },
+            planejamento: { name: 'calculator', class: 'FA' },
+            metas: { name: 'target', class: 'F' },
         });
     }, []);
 
@@ -48,7 +53,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
                         <ItemTextSimple>Configure o seu perfil,</ItemTextSimple>
                         <TextSpan>Kleidson Alves</TextSpan>
                     </ItemText>
-                    <Icon
+                    <SimpleLineIcon
                         name="settings"
                         color={theme.colors.textWhite}
                         size={30}
@@ -56,19 +61,25 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
                 </Item>
             </ConfigLabel>
             <DrawerContentScrollView {...props}>
-                {pages.map(p => (
-                    <CustomDrawerItem
-                        key={p}
-                        icon={
-                            icons[p.toLocaleLowerCase()]
-                                ? icons[p.toLocaleLowerCase()]
-                                : 'question'
-                        }
-                        name={p}
-                        setPage={setPage}
-                        currentPage={page}
-                    />
-                ))}
+                {pages.map(p => {
+                    return (
+                        <CustomDrawerItem
+                            key={p}
+                            icon={
+                                icons[p.toLocaleLowerCase()]
+                                    ? icons[p.toLocaleLowerCase()].name
+                                    : 'question'
+                            }
+                            iconType={
+                                icons[p.toLocaleLowerCase()] &&
+                                icons[p.toLocaleLowerCase()].class
+                            }
+                            name={p}
+                            setPage={setPage}
+                            currentPage={page}
+                        />
+                    );
+                })}
             </DrawerContentScrollView>
         </Container>
     );

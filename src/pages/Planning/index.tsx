@@ -1,10 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+
+import { useNavigation } from '@react-navigation/native';
+import { usePlanning } from '../../hooks/usePlanning';
+
 import Accordian from '../../components/Accordian';
+import { FloatActionButton } from '../../components/Buttons';
 import Header from '../../components/Header';
+
 import { Container, Content } from './styles';
 
 const Planning: React.FC = () => {
+    const navigation = useNavigation();
+    const { plannings } = usePlanning();
+
+    const [gainPlannings, setGainPlannings] = useState([]);
+    const [spentPlannings, setSpentPlannings] = useState([]);
     const [currentAccordian, setCurrentAccordian] = useState('');
+
+    useEffect(() => {
+        setGainPlannings(plannings.filter(p => p.type === 'Ganho') as never);
+        setSpentPlannings(plannings.filter(p => p.type === 'Gasto') as never);
+    }, [plannings]);
+
     return (
         <Container>
             <Header />
@@ -13,23 +30,20 @@ const Planning: React.FC = () => {
                     title="Ganhos"
                     active={currentAccordian}
                     setActive={setCurrentAccordian}
-                    data={[
-                        { id: '1', title: 'Freelance', value: 500 },
-                        { id: '2', title: 'Devedores', value: 50 },
-                    ]}
+                    data={gainPlannings}
                 />
 
                 <Accordian
                     title="Gastos"
                     active={currentAccordian}
                     setActive={setCurrentAccordian}
-                    data={[
-                        { id: '1', title: 'Terno', value: 750 },
-                        { id: '2', title: 'Sapato', value: 200 },
-                        { id: '3', title: 'PS5', value: 3500 },
-                    ]}
+                    data={spentPlannings}
                 />
             </Content>
+            <FloatActionButton
+                icon="plus"
+                action={() => navigation.navigate('NewPlanning' as never)}
+            />
         </Container>
     );
 };

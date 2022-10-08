@@ -17,7 +17,7 @@ import { formatValue } from '../../utils/formaters';
 interface DataProps {
     id: string;
     value: number;
-    title: string;
+    name: string;
 }
 
 interface AccordianProps {
@@ -82,7 +82,7 @@ const Accordian: React.FC<AccordianProps> = ({
                     {data.map(item => (
                         <ItemContainer key={item.id}>
                             <ItemContent>
-                                <ItemText>{item.title}</ItemText>
+                                <ItemText>{item.name}</ItemText>
                                 <ValueText
                                     color={
                                         isGain

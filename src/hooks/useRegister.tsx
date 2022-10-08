@@ -93,7 +93,7 @@ export function RegisterProvider({ children }: RegisterProviderProps) {
                     r.name = name;
                     r.value = value;
                     r.description = description;
-                    r.day = date.getDate();
+                    r.day = date.getDate() + 1;
                     r.month = date.getMonth();
                     r.year = date.getFullYear();
                     r.category.set(selected_category[0]);
