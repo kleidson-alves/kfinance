@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useTheme } from 'styled-components';
 import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import { useRegister } from '../../hooks/useRegister';
-import { formatValue } from '../../utils/formaters';
+import { useRegister } from '../../../hooks/useRegister';
+import { formatValue } from '../../../utils/formaters';
 
 Icon.loadFont();
 

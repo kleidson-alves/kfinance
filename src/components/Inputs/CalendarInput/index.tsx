@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react';
 import { startOfDay } from 'date-fns';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
-import { formatDate } from '../../utils/formaters';
+import { formatDate } from '../../../utils/formaters';
 import { Container, DateButton, TextSpan } from './styles';
 
 interface CalendarInputData {

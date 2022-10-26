@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 
 import { FloatActionButton } from '../../components/Buttons';
-import Header from '../../components/Header';
+import { Header } from '../../components/Headers';
 import RegisterList from '../../components/RegisterList';
 import Summary from '../../components/Summary';
 

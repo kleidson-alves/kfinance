@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import SimpleLineIcon from 'react-native-vector-icons/SimpleLineIcons';
 
 import { useTheme } from 'styled-components';
-import { TextSpan } from '../Header/styles';
 import CustomDrawerItem from './DrawerItem';
 
 import {
@@ -17,6 +16,7 @@ import {
     Item,
     ItemText,
     ItemTextSimple,
+    ItemTextSpan,
 } from './styles';
 
 interface IconProps {
@@ -51,7 +51,7 @@ const CustomDrawer: React.FC<DrawerContentComponentProps> = props => {
                 <Item>
                     <ItemText>
                         <ItemTextSimple>Configure o seu perfil,</ItemTextSimple>
-                        <TextSpan>Kleidson Alves</TextSpan>
+                        <ItemTextSpan>Kleidson Alves</ItemTextSpan>
                     </ItemText>
                     <SimpleLineIcon
                         name="settings"

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import { FloatActionButton } from '../../components/Buttons';
-import Header from '../../components/Header';
+import { Header } from '../../components/Headers';
 import RegisterList from '../../components/RegisterList';
 import Icon from 'react-native-vector-icons/FontAwesome';
 

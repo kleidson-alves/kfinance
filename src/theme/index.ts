@@ -24,7 +24,7 @@ export default {
     },
     sizes: {
         title: 32,
-        subtitle: 24,
+        subtitle: 20,
         body: 16,
         bodySmall: 14,
         input: 14,

@@ -11,16 +11,8 @@ export const Content = styled.View`
     flex: 1;
 `;
 
-export const Title = styled.Text`
-    font-size: ${props => getFontSizeByValue(props.theme.sizes.subtitle)};
-    color: ${props => props.theme.colors.textBlack};
-    font-family: ${props => props.theme.fonts.regular};
-
-    margin-bottom: 15px;
-`;
-
 export const SummarySection = styled.View`
-    margin: 20px 0;
+    margin: 20px 0 40px 0;
 
     flex-direction: row;
     justify-content: space-evenly;
@@ -47,14 +39,14 @@ export const SummaryCardText = styled.Text`
     margin-bottom: 10px;
 `;
 
-export const BodyText = styled.Text`
-    font-family: ${props => props.theme.fonts.regular};
-    color: ${props => props.theme.colors.textBlack};
-    font-size: ${props => getFontSizeByValue(props.theme.sizes.bodySmall)};
-
-    margin-bottom: 10px;
-`;
-
 export const GoalsSection = styled.View`
     flex: 1;
+`;
+
+export const Title = styled.Text`
+    font-size: ${props => getFontSizeByValue(props.theme.sizes.subtitle)};
+    color: ${props => props.theme.colors.textBlack};
+    font-family: ${props => props.theme.fonts.regular};
+
+    margin-bottom: 15px;
 `;

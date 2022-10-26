@@ -13,11 +13,17 @@ export default class GoalModel extends Model {
     @field('is_temp')
     isTemp!: boolean;
 
+    @text('target_category')
+    targetCategory?: string;
+
     @date('start_date')
     startDate?: Date;
 
     @date('end_date')
     endDate?: Date;
+
+    @field('is_reached')
+    isReached!: boolean;
 
     get isActive(): boolean {
         const currentDate = new Date();

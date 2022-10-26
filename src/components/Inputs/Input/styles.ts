@@ -1,5 +1,5 @@
 import styled from 'styled-components/native';
-import { getFontSizeByValue } from '../../utils/fontSize';
+import { getFontSizeByValue } from '../../../utils/fontSize';
 
 interface TextInputProps {
     isFilled: boolean;

@@ -8,10 +8,10 @@ import { useRegister } from '../../hooks/useRegister';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import { Button } from '../../components/Buttons';
-import CalendarInput from '../../components/CalendarInput';
+import { CalendarInput } from '../../components/Inputs';
 import DropDown from '../../components/DropDown';
-import Input from '../../components/Input';
-import SimpleHeader from '../../components/SimpleHeader';
+import { Input } from '../../components/Inputs';
+import { SimpleHeader } from '../../components/Headers';
 
 import { Container, Form } from './styles';
 import { formatNumber } from '../../utils/formaters';

@@ -16,12 +16,19 @@ export const goalSchema = tableSchema({
             type: 'boolean',
         },
         {
+            name: 'target_category',
+            type: 'string',
+            isOptional: true,
+        },
+        {
             name: 'start_date',
             type: 'number',
+            isOptional: true,
         },
         {
             name: 'end_date',
             type: 'number',
+            isOptional: true,
         },
         {
             name: 'is_reached',

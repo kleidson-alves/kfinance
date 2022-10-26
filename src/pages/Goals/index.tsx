@@ -3,7 +3,8 @@ import React from 'react';
 import { useNavigation } from '@react-navigation/native';
 
 import Icon from 'react-native-vector-icons/Feather';
-import Header from '../../components/Header';
+
+import { Header } from '../../components/Headers';
 import { FloatActionButton } from '../../components/Buttons';
 
 import { useTheme } from 'styled-components';
@@ -17,6 +18,7 @@ import {
     SummarySection,
     Title,
 } from './styles';
+import GoalCard from '../../components/Cards/GoalCard';
 
 const Goals: React.FC = () => {
     const navigation = useNavigation();
@@ -55,6 +57,13 @@ const Goals: React.FC = () => {
                 </SummarySection>
                 <GoalsSection>
                     <Title>Minhas metas</Title>
+                    <GoalCard
+                        isComplete={false}
+                        type="Controle de gastos"
+                        category="Lazer"
+                    />
+
+                    <GoalCard isComplete={false} type="Poupar dinheiro" />
                 </GoalsSection>
                 <FloatActionButton
                     icon="plus"

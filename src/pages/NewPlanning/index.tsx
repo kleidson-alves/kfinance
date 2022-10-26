@@ -6,8 +6,9 @@ import * as Yup from 'yup';
 import { usePlanning } from '../../hooks/usePlanning';
 
 import { Button, RadioButton } from '../../components/Buttons';
-import Input from '../../components/Input';
-import SimpleHeader from '../../components/SimpleHeader';
+import { Input } from '../../components/Inputs';
+import { SimpleHeader } from '../../components/Headers';
+
 import { formatNumber } from '../../utils/formaters';
 import { INFO_GAIN_TYPE, INFO_SPENT_TYPE } from '../../utils/constants';
 

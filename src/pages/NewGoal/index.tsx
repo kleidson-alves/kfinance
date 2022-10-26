@@ -1,5 +1,5 @@
 import React from 'react';
-import SimpleHeader from '../../components/SimpleHeader';
+import { SimpleHeader } from '../../components/Headers';
 import { Container } from './styles';
 
 const NewGoal: React.FC = () => {

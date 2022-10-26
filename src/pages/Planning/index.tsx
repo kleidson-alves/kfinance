@@ -5,7 +5,7 @@ import { usePlanning } from '../../hooks/usePlanning';
 
 import Accordian from '../../components/Accordian';
 import { FloatActionButton } from '../../components/Buttons';
-import Header from '../../components/Header';
+import { Header } from '../../components/Headers';
 
 import { Container, Content } from './styles';
 
